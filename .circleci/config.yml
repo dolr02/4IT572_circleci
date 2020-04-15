@@ -4,7 +4,7 @@ vse: &vse
 
 version: 2.1
 jobs:
-  build:
+   build:
     <<: *vse
     steps:
       - checkout
