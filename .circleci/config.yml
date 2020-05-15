@@ -1,9 +1,20 @@
-vse: &vse
-  docker:
-    - image: circleci/node:8.11.3
-
 version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
+  build-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
   build:
     <<: *vse
     steps:
@@ -22,7 +33,6 @@ jobs:
            at: .
         - run:
            command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
-
 workflows:
   version: 2.1
   build:
