@@ -32,7 +32,7 @@ workflows:
         - attach_workspace:
            at: .
         - run:
-           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 workflows:
   version: 2.1
   build:
