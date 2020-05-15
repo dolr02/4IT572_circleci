@@ -1,46 +1,31 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-jobs:
-  build-and-test:
-    executor:
+jobs: 
+  build-and-test: 
+    executor: 
       name: node/default
-    steps:
+    steps: 
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
-workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
-    build:
-    <<: &vse
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm run test
-      - run: npm run build
-      - persist_to_workspace:
-         root: .
-         paths:
-            - .
-    deploy:
-     <<: &vse
-     steps:
-        - attach_workspace:
-           at: .
-        - run:
-           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
-workflows:
-  version: 2.1
-   build-and-test:
-    jobs:
+      - 
+        node/with-cache: 
+          steps: 
+            - 
+              run: "npm install"
+            - 
+              run: "npm test"
+orbs: 
+  node: circleci/node@1.1.6
+version: 2.1
+workflows: 
+  build: 
+    jobs: 
       - build
-      - deploy:
-         requires:
+      - 
+        deploy: 
+          filters: 
+            branches: 
+              only: master
+          requires: 
             - build
-         filters:
-            branches:
-               only: master
+  version: 2.1
